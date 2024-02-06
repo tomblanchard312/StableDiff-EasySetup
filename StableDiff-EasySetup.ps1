@@ -1,5 +1,5 @@
 ﻿<#
-Script: Install-StableDiffusion.ps1
+Script: StableDiff-EasySetup.ps1
 Author: Tom Blanchard
 Date: February 10, 2024
 Description: This PowerShell script automates the installation of Git, Anaconda, Stable Diffusion, and the Stable Diffusion Web UI. It creates a new Anaconda environment, installs required packages, downloads a weight file, sets up the Stable Diffusion Web UI, and opens it in the default browser.
