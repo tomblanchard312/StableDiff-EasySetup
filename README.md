@@ -32,7 +32,7 @@ This PowerShell script automates the installation of Git, Anaconda, Stable Diffu
 2. Navigate to the repository directory:
 
     ```powershell
-    cd YourRepository
+    cd StableDiff-EasySetup
     ```
 
 3. Run the script with bypassing execution policy:
