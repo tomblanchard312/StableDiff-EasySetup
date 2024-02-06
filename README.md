@@ -27,7 +27,7 @@ This PowerShell script automates the installation of Git, Anaconda, Stable Diffu
 1. Clone this repository:
 
     ```powershell
-    git clone https://github.com/YourUsername/YourRepository.git
+    git clone https://github.com/tomblanchard312/YourRepository.git
     ```
 2. Navigate to the repository directory:
 
