@@ -44,12 +44,6 @@ This PowerShell script automates the installation of Git, Anaconda, Stable Diffu
 
 4. Follow the prompts to complete the installation.
 
-**Important Note:**
-- Make sure to review and modify the script according to your requirements.
-- Ensure PowerShell execution policy allows script execution.
-
-
-
 # Important Note
 - Make sure to review and modify the script according to your requirements.
 - Ensure PowerShell execution policy allows script execution.
