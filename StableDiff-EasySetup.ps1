@@ -1,25 +1,33 @@
 ﻿<#
-Script: StableDiff-EasySetup.ps1
-Author: Tom Blanchard
-Date: February 10, 2024
-Description: This PowerShell script automates the installation of Git, Anaconda, Stable Diffusion, and the Stable Diffusion Web UI. It creates a new Anaconda environment, installs required packages, downloads a weight file, sets up the Stable Diffusion Web UI, and opens it in the default browser.
-
-Versions:
-- Git: Latest version (https://github.com/git-for-windows/git/releases/download/v2.43.0.windows.1/Git-2.43.0-64-bit.exe)
-- Anaconda: Latest version (https://repo.anaconda.com/archive/Anaconda3-2023.09-0-Windows-x86_64.exe)
-- Python: 3.8
-- PyTorch: Latest version with GPU support
-- Stable Diffusion: Latest version
-- Stable Diffusion Web UI: AUTOMATIC1111's version
-
-Instructions:
-1. Run this script in PowerShell to automate the installation process.
-2. Follow the prompts to enter the necessary information.
-3. The script will download dependencies, set up the environment, and open the Stable Diffusion Web UI in the default browser.
-
-Note: Adjust paths and file names as needed based on your specific environment configurations and requirements.
+#Script: StableDiff-EasySetup.ps1
+#Author: Tom Blanchard
+#Date: February 10, 2024
+#Description: This PowerShell script automates the installation of Git, Anaconda, Stable Diffusion, and the Stable Diffusion Web UI. It creates a new Anaconda environment, installs required packages, downloads a weight file, sets up the Stable Diffusion Web UI, and opens it in the default browser.
+#
+#Versions:
+#- Git: Latest version (https://github.com/git-for-windows/git/releases/download/v2.43.0.windows.1/Git-2.43.0-64-bit.exe)
+#- Anaconda: Latest version (https://repo.anaconda.com/archive/Anaconda3-2023.09-0-Windows-x86_64.exe)
+#- Python: 3.8
+#- PyTorch: Latest version with GPU support
+#- Stable Diffusion: Latest version
+#- Stable Diffusion Web UI: AUTOMATIC1111's version
+#
+#Instructions:
+#1. Run this script in PowerShell to automate the installation process.
+#2. Follow the prompts to enter the necessary information.
+#3. The script will download dependencies, set up the environment, and open the Stable Diffusion Web UI in the default browser.
+#
+#Note: Adjust paths and file names as needed based on your specific environment configurations and requirements.
 #>
-
+# Check Internet Connectivity
+$webRequest = Invoke-WebRequest -Uri "https://www.google.com" -UseBasicParsing -ErrorAction SilentlyContinue
+if ($webRequest.StatusCode -ne 200) {
+    Write-Host "Error: No internet connection detected. Please connect to the internet and run the script again."
+    exit
+}
+else {
+    Write-Host "Internet connection detected. Starting installation script."
+}
 # Latest Git and Anaconda URLs
 $gitInstallerUrl = "https://github.com/git-for-windows/git/releases/download/v2.43.0.windows.1/Git-2.43.0-64-bit.exe"
 $anacondaInstallerUrl = "https://repo.anaconda.com/archive/Anaconda3-2023.09-0-Windows-x86_64.exe"
@@ -90,8 +98,8 @@ if (Test-Path "$env:ProgramFiles\Anaconda3") {
 
     # Install Anaconda
     Write-Host "Installing Anaconda..."
-    Start-Process -Wait -FilePath $anacondaInstallerPath -ArgumentList "/InstallationType=AllUsers", "/AddToPath=1", "/RegisterPython=0", "/S", "/D=$anacondaInstallDir"
-
+    Start-Process -Wait -FilePath $anacondaInstallerPath -ArgumentList "/InstallationType=AllUsers", "/AddToPath=1", "/RegisterPython=1", "/S", "/D=$anacondaInstallDir"
+    
     # Remove the installer
     Remove-Item $anacondaInstallerPath
 
@@ -99,6 +107,9 @@ if (Test-Path "$env:ProgramFiles\Anaconda3") {
     Add-AnacondaToPath
     Add-PythonToPath
 }
+# Reload PowerShell session with Bypass Execution Policy
+Write-Host "Reloading PowerShell session..."
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "Set-ExecutionPolicy Bypass -Scope Process -Force" -Verb RunAs
 
 # Update Anaconda
 Write-Host "Updating Anaconda..."
